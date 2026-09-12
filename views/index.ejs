@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudShare</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>CloudShare</h1>
+
+        <p>Simple and secure cloud file sharing.</p>
+
+        <section class="upload-box">
+
+            <h2>Upload File</h2>
+
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button type="submit">Upload</button>
+            </form>
+
+        </section>
+
+       <section>
+
+    <h2>My Files</h2>
+
+    <% if (files.length === 0) { %>
+
+        <p>No files uploaded yet.</p>
+
+    <% } else { %>
+
+        <% files.forEach(file => { %>
+
+            <div class="file">
+
+                <div>
+                    <strong><%= file.fileName %></strong>
+                    <br>
+                    <small>
+                        <%= file.fileSize %> bytes
+                    </small>
+                </div>
+
+                <div>
+                    <a href="/share/<%= file.shareToken %>">
+    <button type="button">Share</button>
+</a>
+                    <form
+    action="/delete/<%= file.id %>"
+    method="POST"
+    style="display: inline;"
+>
+    <button type="submit">
+        Delete
+    </button>
+</form>
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    <% } %>
+
+</section>
+
+    </div>
+
+</body>
+</html>
